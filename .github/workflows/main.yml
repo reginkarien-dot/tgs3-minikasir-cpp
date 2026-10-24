@@ -1,0 +1,26 @@
+name: Build Mini Kasir
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'main.cpp'
+      - '.github/workflows/main.yml'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile C++
+        shell: cmd
+        run: g++ main.cpp -o MiniKasir.exe
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: MiniKasir-Windows
+          path: MiniKasir.exe
